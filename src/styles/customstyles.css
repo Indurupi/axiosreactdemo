@@ -1,0 +1,14 @@
+.company-list {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #bbb;
+  background-color: #eee;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
