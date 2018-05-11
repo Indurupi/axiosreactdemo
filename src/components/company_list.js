@@ -16,10 +16,6 @@ function CompanyList(props) {
           className={'purple-gradient button-style disp-inline'}
           onClick={() => {props.deleteCompany(c.name, c.id)}}
         > Delete </button>
-        <button
-          className={'purple-gradient button-style disp-inline'}
-          onClick={() => {props.setActivePage('update')}}
-        > Update </button>
       </div>
       </div>)}
     </div>
