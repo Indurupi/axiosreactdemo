@@ -1,19 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "../styles/customstyles.css";
+import CompanyTable from './company_table';
 
 function CompanyList(props) {
   return (
     <div className="">
     {
       props.companies.map(c => <div className="company-list" key={c.id}>
-      <div>Company Name: {c.company_name}</div>
-      <div>Full Domain: {c.full_domain}</div>
-      <div>User Name: {c.username}</div>
-      <div>Mobile: {c.mobile_number}</div>
+      <CompanyTable company={c} />
       <div>
         <button
-          className={'purple-gradient button-style disp-inline'}
+          className={'purple-gradient button-style disp-inline width-100'}
           onClick={() => {props.deleteCompany(c.name, c.id)}}
         > Delete </button>
       </div>

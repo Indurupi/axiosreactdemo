@@ -109,6 +109,7 @@ function Signup(props) {
             className="purple-gradient button-style"
             name="submit"
             type="submit"
+            style={{  width: '50%' }}
             onClick={() => {
               const { companyData, message } = submitForm(props.companies);
               if(message === 'valid') {
