@@ -109,7 +109,7 @@ export function validateInputs(inputId, value, companies) {
     message = companyNameValidate(value);
   } else if(inputId === 'subdomain') {
     message = subdomainValidate(value, subdomainArray);
-  } else if(inputId === 'emailaddress') {
+  } else if(inputId === 'email') {
     message = emailValidate(value, emailArray);
   } else if(inputId === 'mobilenumber') {
     message = mobilenumberValidate(value);

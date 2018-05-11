@@ -7,9 +7,11 @@ import CompanyList from "./components/company_list";
 import Signup from './components/signup';
 import Login from './components/login';
 
-const headers = {
+const customHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
+  'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+  'Content-Type': 'application/json',
+  // 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Custom-header'
 };
 
 class App extends Component {
@@ -17,10 +19,26 @@ class App extends Component {
   static jsonResponse(value) {
     return JSON.parse(JSON.stringify(value));
   }
+
+  constructor(props) {
+    super(props);
+    this.deleteCompany = this.deleteCompany.bind(this);
+    this.updateCompany = this.updateCompany.bind(this);
+    this.createCompany = this.createCompany.bind(this);
+    this.getCompanies = this.getCompanies.bind(this);
+    this.login = this.login.bind(this);
+    this.setActivePage = this.setActivePage.bind(this);
+    this.state = {
+      companies: [],
+      token: '',
+      activePage: 'login'
+    };
+  }
   getCompanies() {
+    if(this.state.token) {
     axios
       .get("http://demoapi.nekhop.com/api/company/", {
-  	headers: headers
+  	headers: customHeaders
   	})
       .then(response => {
         const newCompanies = App.jsonResponse(response.data.data);
@@ -55,15 +73,18 @@ class App extends Component {
         this.setState(newState);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
+        console.log('config', error.config);
+        console.log('request', error.request);
       });
+    }
   }
   createCompany(data) {
     const newCompany = JSON.stringify(data);
     axios.post("http://demoapi.nekhop.com/api/company/create",
     data: newCompany,
     {
-    headers: headers,
+    headers: customHeaders,
     }).then(response => {
       console.log(App.jsonResponse(response.data.data));
       this.getCompanies();
@@ -76,11 +97,15 @@ class App extends Component {
     axios.post("http://demoapi.nekhop.com/api/user/login",
     data: credentials,
     {
-    headers: headers
+    headers: customHeaders
     }).then(response => {
+      const token = App.jsonResponse(response.data.data.access_token);
       const success = App.jsonResponse(response.data.success);
       const errorMessage = success ? 'Login Successfull' : 'Wrong credentials';
       document.getElementById('login-error').innerHTML = errorMessage;
+      this.setState({ token,
+      activePage: 'companyList' });
+      this.getCompanies();
     }).catch((error) => {
       console.log(error);
     });
@@ -95,23 +120,17 @@ class App extends Component {
   updateCompany(id, data) {
     axios.put("http://demoapi.nekhop.com/api/company/update?id="+id, {
     data: JSON.stringify(data),
-    headers: headers,
+    headers: customHeaders,
     }).then(response => {
       this.getCompanies();
     }).catch((error) => {
       console.log(error);
     });
   }
-  constructor(props) {
-    super(props);
-    this.deleteCompany = this.deleteCompany.bind(this);
-    this.updateCompany = this.updateCompany.bind(this);
-    this.createCompany = this.createCompany.bind(this);
-    this.getCompanies = this.getCompanies.bind(this);
-    this.login = this.login.bind(this);
-    this.state = {
-      companies: []
-    };
+  setActivePage(newPage) {
+    this.setState({
+      activePage: newPage
+    });
   }
   componentDidMount() {
     this.getCompanies();
@@ -123,7 +142,30 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Company Registration</h1>
         </header>
-        <CompanyList companies={this.state.companies} deleteCompany={this.deleteCompany} />
+        <div className="col-md-12 col-sm-12">
+        {this.state.activePage === 'login' ? <Login login={this.login} /> : null}
+        {this.state.activePage === 'companyList' ?
+        <div>
+        <button onClick={()=> {this.setActivePage('signUp')}}> Create Company </button>
+          <CompanyList
+            companies={this.state.companies}
+            deleteCompany={this.deleteCompany}
+            updateCompany={this.updateCompany}
+          />
+        </div> : null
+        }
+        {
+          this.state.activePage === 'signUp' ?
+          <div>
+            <button onClick={()=> {this.setActivePage('companyList')}}> See Company Lists </button>
+            <Signup
+              companies={this.state.companies}
+              createCompany={this.createCompany}
+            />
+            </div> : null
+        }
+        </div>
+        {/*<CompanyList companies={this.state.companies} deleteCompany={this.deleteCompany} updateCompany={this.updateCompany} />
         <div className="col-md-12 col-sm-12">
           <div className="col-md-6 col-sm-6">
             <Signup companies={this.state.companies} createCompany={this.createCompany} />
@@ -132,7 +174,7 @@ class App extends Component {
             <Login companies={this.state.companies} login={this.login} />
           </div>
         </div>
-        <button onClick={()=> {this.updateCompany(9, updatedata)}}> update </button>
+        <button onClick={()=> {this.updateCompany(9, updatedata)}}> update </button>*/}
       </div>
     );
   }

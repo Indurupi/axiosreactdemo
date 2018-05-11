@@ -32,7 +32,7 @@ const inputField = [
   {
     id: 'email',
     placeholder: 'Email Address',
-    type: 'email'
+    type: 'text'
   },
   {
     id: 'mobilenumber',

@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { notBlank } from './signupform_validations';
 
 function Login(props) {
@@ -28,12 +28,12 @@ function Login(props) {
         </button>
         <div id={'login-error'} />
       </div>
-      {/*<div className="text-center"><a onClick={() => {console.log('signup');}}>New users sign up here</a></div>*/}
     </div>
   );
 }
 
 Login.propTypes = {
+  login: PropTypes.func.isRequired
 };
 
 export default Login;

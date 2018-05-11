@@ -16,7 +16,8 @@ function CompanyList(props) {
 }
 
 CompanyList.propTypes = {
-  companies: PropTypes.array.isRequired
+  companies: PropTypes.array.isRequired,
+  deleteCompany: PropTypes.func.isRequired
 };
 
 export default CompanyList;
