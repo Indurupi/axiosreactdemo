@@ -3,21 +3,24 @@ import PropTypes from "prop-types";
 import "../styles/customstyles.css";
 import CompanyTable from './company_table';
 
-function CompanyList(props) {
-  return (
-    <div className="">
-    {
-      props.companies.map(c => <div className="company-list" key={c.id}>
-      <CompanyTable company={c} />
-      <div>
-        <button
-          className={'purple-gradient button-style disp-inline width-100'}
-          onClick={() => {props.deleteCompany(c.name, c.id)}}
-        > Delete </button>
+
+class CompanyList extends React.Component {
+  render() {
+    return (
+      <div className="">
+      {
+        this.props.companies.map(c => <div className="company-list" key={c.id}>
+        <CompanyTable company={c} />
+        <div>
+          <button
+            className={'purple-gradient button-style disp-inline width-100'}
+            onClick={() => {this.props.deleteCompany(c.name, c.id)}}
+          > Delete </button>
+        </div>
+        </div>)}
       </div>
-      </div>)}
-    </div>
-  );
+    );
+  }
 }
 
 CompanyList.propTypes = {

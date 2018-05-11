@@ -5,7 +5,7 @@ import { notBlank } from './signupform_validations';
 function Login(props) {
   let errorMessage;
   return (
-    <div className="font-style-class login col-md-6 col-md-push-4">
+    <div className="font-style-class login col-md-6 col-md-push-4 col-sm-6 col-sm-push-3">
       <div className="heading text-center">Login</div>
       <div className="form-display"><input id="loginuser" placeholder="Username" type="text" /></div>
       <div className="form-display"><input id="loginpassword" placeholder="Password" type="text" /></div>

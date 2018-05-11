@@ -31,11 +31,11 @@ class App extends Component {
     this.state = {
       companies: [],
       token: '',
-      activePage: 'login'
+      activePage: 'companyList'
     };
   }
   getCompanies() {
-    if(this.state.token) {
+    // if(this.state.token) {
     axios
       .get("http://demoapi.nekhop.com/api/company/", {
   	headers: customHeaders
@@ -75,7 +75,7 @@ class App extends Component {
       .catch((error) => {
         console.log(error);
       });
-    }
+    // }
   }
   createCompany(data) {
     const newCompany = JSON.stringify(data);
