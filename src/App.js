@@ -73,9 +73,7 @@ class App extends Component {
         this.setState(newState);
       })
       .catch((error) => {
-        console.log(error.message);
-        console.log('config', error.config);
-        console.log('request', error.request);
+        console.log(error);
       });
     }
   }
@@ -99,13 +97,15 @@ class App extends Component {
     {
     headers: customHeaders
     }).then(response => {
-      const token = App.jsonResponse(response.data.data.access_token);
       const success = App.jsonResponse(response.data.success);
-      const errorMessage = success ? 'Login Successfull' : 'Wrong credentials';
-      document.getElementById('login-error').innerHTML = errorMessage;
-      this.setState({ token,
-      activePage: 'companyList' });
-      this.getCompanies();
+      if(success) {
+        const token = App.jsonResponse(response.data.data.access_token);
+        this.setState({ token,
+        activePage: 'companyList' });
+        this.getCompanies();
+      } else {
+        document.getElementById('login-error').innerHTML = 'Wrong credentials';
+      }
     }).catch((error) => {
       console.log(error);
     });
@@ -136,7 +136,6 @@ class App extends Component {
     this.getCompanies();
   }
   render() {
-    const updatedata = {};
     return (
       <div className="App">
         <header className="App-header">
@@ -146,18 +145,18 @@ class App extends Component {
         {this.state.activePage === 'login' ? <Login login={this.login} /> : null}
         {this.state.activePage === 'companyList' ?
         <div>
-        <button onClick={()=> {this.setActivePage('signUp')}}> Create Company </button>
+        <div className={'text-center'} style={{ marginTop: '10px' }}><button className={'purple-gradient button-style'} onClick={()=> {this.setActivePage('signUp')}}> Create Company </button></div>
           <CompanyList
             companies={this.state.companies}
             deleteCompany={this.deleteCompany}
-            updateCompany={this.updateCompany}
+            setActivePage={this.setActivePage}
           />
         </div> : null
         }
         {
           this.state.activePage === 'signUp' ?
           <div>
-            <button onClick={()=> {this.setActivePage('companyList')}}> See Company Lists </button>
+            <div className={'text-center'} style={{ marginTop: '10px' }}><button className={'purple-gradient button-style'} onClick={()=> {this.setActivePage('companyList')}}> See Company Lists </button></div>
             <Signup
               companies={this.state.companies}
               createCompany={this.createCompany}
@@ -165,16 +164,6 @@ class App extends Component {
             </div> : null
         }
         </div>
-        {/*<CompanyList companies={this.state.companies} deleteCompany={this.deleteCompany} updateCompany={this.updateCompany} />
-        <div className="col-md-12 col-sm-12">
-          <div className="col-md-6 col-sm-6">
-            <Signup companies={this.state.companies} createCompany={this.createCompany} />
-          </div>
-          <div className="col-md-6 col-sm-6">
-            <Login companies={this.state.companies} login={this.login} />
-          </div>
-        </div>
-        <button onClick={()=> {this.updateCompany(9, updatedata)}}> update </button>*/}
       </div>
     );
   }
