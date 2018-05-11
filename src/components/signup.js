@@ -62,11 +62,11 @@ function Signup(props) {
   let errorMessage;
   return (
     <div id="signupdiv">
-      <div className="font-style-class signup" >
+      <div className="font-style-class signup width-100" >
         <div className="heading text-center">Sign UP</div>
           {inputField.map(input => {
             return(<div key={input.id}>
-              <div className="form-display"><input
+              <div className="form-display input-display"><input
               id={input.id}
               placeholder={input.placeholder}
               type={input.type}
@@ -87,11 +87,11 @@ function Signup(props) {
                 }}
               />
               </div>
-              <div id={`error_${input.id}`} className={'form-display'} />
+              <div id={`error_${input.id}`} className={'form-display input-display'} />
             </div>)
           })}
         <div>
-          <div className={'form-display'}>
+          <div className={'form-display input-display'}>
             <textarea id={'address'} placeholder="Address" type="text" onChange={(event) => {
              let errorElement = document.getElementById('error_address');
              errorMessage = notBlank(event.target.value) ? 'Please give a valid address' : 'valid';
@@ -101,12 +101,12 @@ function Signup(props) {
                errorElement.innerHTML = '';
             }} />
           </div>
-          <div id={'error_address'} className={'form-display'} />
+          <div id={'error_address'} className={'form-display input-display'} />
         </div>
         {errorMessage !== 'valid' ?  errorMessage : ''}
         <div>
           <button
-            className="purple-gradient"
+            className="purple-gradient button-style"
             name="submit"
             type="submit"
             onClick={() => {

@@ -18,42 +18,45 @@
   font-size: 12px;
   line-height: 30px;
   color: #777;
-  background: #4CAF50;
 }
-
-.signup input,
-.signup button[type="submit"] {
+  input,
+.button-style {
   font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
 }
 
-.signup {
+.signup, .login {
   background: #F9F9F9;
   padding: 25px;
   margin: 10px 0px;
-  width: 100%;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+.login {
+  max-width: 400px;
+}
 .form-display {
-  display: inline-block;
-  width: 50%;
   padding: 5px;
   vertical-align: top;
+}
+.input-display {
+  display: inline-block;
+  width: 50%;
 }
 .heading  {
     font-size: 30px;
     margin-bottom: 10px;
     color: #c850c0;
 }
-.signup input, .signup textarea {
+input, textarea {
   width: 100%;
   border: 1px solid #ccc;
   background: #FFF;
-  padding: 10px;
+  padding: 5px;
 }
-.signup textarea {
+textarea {
   resize: none;
 }
-.signup input:hover, .signup textarea:hover {
+input:hover, textarea:hover {
   -webkit-transition: border-color 0.3s ease-in-out;
   -moz-transition: border-color 0.3s ease-in-out;
   transition: border-color 0.3s ease-in-out;
@@ -67,9 +70,8 @@
 .red-border {
   border: 1px solid red !important;
 }
-.signup button[type="submit"] {
+.button-style {
   cursor: pointer;
-  width: 100%;
   border: none;
   color: #FFF;
   margin: 0 0 5px;
@@ -77,14 +79,14 @@
   font-size: 15px;
 }
 
-.signup button[type="submit"]:hover {
+.button-style:hover {
   opacity: 0.8
 }
 
-.signup button[type="submit"]:active {
+.button-style:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
-.signup input:focus,.signup textarea:focus {
+input:focus,textarea:focus {
   outline: 0;
   border: 1px solid #aaa;
 }

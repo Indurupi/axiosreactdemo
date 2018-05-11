@@ -3,6 +3,8 @@
   padding: 10px;
   border: 1px solid #bbb;
   background-color: #eee;
+  display: inline-block;
+  width: 45%;
 }
 
 .text-right {
@@ -11,4 +13,11 @@
 
 .text-center {
   text-align: center;
+}
+.disp-inline {
+  display: inline-block;
+  margin-right: 10px !important;
+}
+.width-100 {
+  width: 100%;
 }
